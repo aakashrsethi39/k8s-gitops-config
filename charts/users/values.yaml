@@ -1,8 +1,8 @@
 replicaCount: 2
 
 image:
-  repository: nginx
-  tag: "latest"
+  repository: 482311061933.dkr.ecr.ap-south-1.amazonaws.com/users
+  tag: "1.0"
   pullPolicy: IfNotPresent
 
 service:
