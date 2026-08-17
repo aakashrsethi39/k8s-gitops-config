@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: frontend-staging
+  name: frontend-production
   namespace: argocd
 spec:
   project: default
@@ -13,11 +13,11 @@ spec:
 
     helm:
       valueFiles:
-        - ../../environments/staging/frontend-values.yaml
+        - ../../environments/production/frontend-values.yaml
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: frontend-staging
+    namespace: frontend-production
 
   syncPolicy:
     automated:
