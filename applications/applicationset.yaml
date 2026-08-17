@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: microservices
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - environment: staging
+                  namespace: staging
+                - environment: production
+                  namespace: production
+
+          - list:
+              elements:
+                - service: frontend
+                - service: orders
+                - service: users
+
+  template:
+    metadata:
+      name: '{{service}}-{{environment}}'
+      namespace: argocd
+
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/aakashrsethi39/k8s-gitops-config.git
+        targetRevision: main
+        path: 'charts/{{service}}'
+
+        helm:
+          valueFiles:
+            - '../../environments/{{environment}}/{{service}}-values.yaml'
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{service}}-{{environment}}'
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true
