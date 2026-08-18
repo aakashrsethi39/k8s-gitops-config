@@ -15,3 +15,7 @@ resources:
   limits:
     cpu: 300m
     memory: 256Mi
+
+ingress:
+  enabled: true
+  groupName: production
