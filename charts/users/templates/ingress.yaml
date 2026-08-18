@@ -7,6 +7,8 @@ metadata:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/group.name: {{ .Values.ingress.groupName }}
+    alb.ingress.kubernetes.io/transforms.users: |
+      [{"type":"url-rewrite","urlRewriteConfig":{"rewrites":[{"regex":"^/api/users/?(.*)$","replace":"/users/$1"}]}}]
 spec:
   ingressClassName: alb
   rules:
