@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::482311061933:oidc-provider/oidc.eks.ap-south-1.amazonaws.com/id/168E48FB1F7A4AEF358C323004CC1C2F"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "oidc.eks.ap-south-1.amazonaws.com/id/168E48FB1F7A4AEF358C323004CC1C2F:aud": "sts.amazonaws.com",
+          "oidc.eks.ap-south-1.amazonaws.com/id/168E48FB1F7A4AEF358C323004CC1C2F:sub": "system:serviceaccount:jenkins:jenkins-agent"
+        }
+      }
+    }
+  ]
+}
